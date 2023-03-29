@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "a4b80a7c-5edc-4d89-848a-2f66d80448a4",
+		"name": "Zapta Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21541638"
+	},
+	"item": [
+		{
+			"name": "Longitude/Latitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Longitude\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.coord.lon).to.eql(-0.13);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Latitude\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.coord.lat).to.eql(51.51)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d28",
+					"protocol": "https",
+					"host": [
+						"samples",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "London,uk"
+						},
+						{
+							"key": "appid",
+							"value": "b6907d28"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "name/geonmae/humidity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify status\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.city.name).to.eql(\"Moscow\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify geoname\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.city.geoname_id).to.eql(524901)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify humidity\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.list[0].humidity).to.eql(76)\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"//fail test case\r",
+							"\r",
+							"pm.test(\"Verify dt\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.list[0].dt).to.eql(1485766)\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://samples.openweathermap.org/data/2.5/forecast/daily?id=524901&appid=b6907d28",
+					"protocol": "http",
+					"host": [
+						"samples",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"forecast",
+						"daily"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "524901"
+						},
+						{
+							"key": "appid",
+							"value": "b6907d28"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
